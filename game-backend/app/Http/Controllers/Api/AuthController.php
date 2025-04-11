@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function adminAuth(Request $request){
+        return response()->json([
+            'message' => 'succesfully',
+            'redirect' => ''
+        ]);
+    }
+
     public function register(Request $request){
         try{
             $request->validate([

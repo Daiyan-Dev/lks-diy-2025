@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Category</title>
     @vite('resources/css/app.css')
-    <style>
+    <style> 
         .page-title {
             color: #4f46e5;
             font-size: 2.5rem;

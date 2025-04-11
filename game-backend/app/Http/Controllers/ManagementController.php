@@ -66,14 +66,16 @@ class ManagementController extends Controller
     public function gameVersion(Request $request){
         $perPage = $request->get('per_page', 10); // Default 10 item per halaman
         $search = $request->get('search', ''); // Parameter pencarian
-        $sortBy = $request->get('sort_by', 'name'); // Sortir berdasarkan kolom
+        $sortBy = $request->get('sort_by', 'version'); // Sortir berdasarkan kolom
         $sortDir = $request->get('sort_dir', 'asc'); // Arah pengurutan
 
-        $query = GameVersion::query();
+        $query = GameVersion::with(['user']);
+        // If developer, show only their own games
+            $query->where('user_id', Auth::user()->id);
         // Fitur pencarian
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
+                $q->where('version', 'like', "%{$search}%");
             });
         }
 
@@ -81,9 +83,9 @@ class ManagementController extends Controller
         $query->orderBy($sortBy, $sortDir);
 
         // Pagination dengan parameter dinamis
-        $category = $query->paginate($perPage)->withQueryString();
+        $gameVersion = $query->paginate($perPage)->withQueryString();
 
-        return view('game.game_version', compact('category', 'search', 'sortBy', 'sortDir', 'perPage'));
+        return view('game.game_version', compact('gameVersion', 'search', 'sortBy', 'sortDir', 'perPage'));
     }
 
     //add function
@@ -140,6 +142,26 @@ class ManagementController extends Controller
         }
     }
 
+    public function gameVersionPost(Request $request){
+        $request->validate([
+            'name' => 'required',
+        ]);
+        // $uniqueVersion = GameVersion::where('version', $request->name)->first();
+        // if ($uniqueVersion) {
+        //     return redirect()->back()->with('error', 'Version already exists');
+        // }
+        $gameVersion = GameVersion::create([
+            'user_id' => Auth::user()->id,
+            'version' => $request->name,
+            'storage_path' => now(),
+        ]);
+        if ($gameVersion) {
+            return redirect()->back()->with('success', 'Category created successfully');
+        } else {
+            return redirect()->back()->with('error', 'Failed to create category');
+        }
+    }
+
     //update function
     function updateRole(Request $request)
     {
@@ -179,6 +201,8 @@ class ManagementController extends Controller
             return redirect('/category')->with('error', 'Category not found');
         }
     }
+
+    //update game version
 
     //delete function
     public function userDelete(Request $request){

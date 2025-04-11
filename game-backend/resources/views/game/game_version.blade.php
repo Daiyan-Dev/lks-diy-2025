@@ -1,4 +1,4 @@
-<!-- filepath: d:\laragon\www\Game-Browser\game-backend\resources\views\category\category.blade.php -->
+<!-- filepath: d:\laragon\www\Game-Browser\game-backend\resources\views\gameVersion\gameVersion.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +71,7 @@
                 </button>
             </div>
 
-            <!-- Category Table -->
+            <!-- gameVersion Table -->
             <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-lg">
                 <table class="min-w-full divide-y divide-gray-300 bg-white text-sm">
                     <thead class="bg-indigo-100 text-gray-800">
@@ -83,20 +83,20 @@
                     </thead>
 
                     <tbody class="divide-y divide-gray-200">
-                        @if(count($category) == 0)
+                        @if(count($gameVersion) == 0)
                             <tr>
                                 <td colspan="3" class="text-center px-6 py-3 text-gray-700">No data version game found</td>
                             </tr>
                         @else
-                            @foreach ($category as $index => $ctgry)
+                            @foreach ($gameVersion as $index => $gv)
                                 <tr class="hover:bg-gray-50 transition-all">
                                     <td class="text-center px-6 py-3 text-gray-700">{{ $index + 1 }}</td>
-                                    <td class="text-center px-6 py-3 text-gray-700 truncate max-w-xs">{{ $ctgry->name }}</td>
+                                    <td class="text-center px-6 py-3 text-gray-700 truncate max-w-xs">{{ $gv->version }}</td>
                                     <td class="text-center px-6 py-3 text-gray-700">
                                         <!-- Edit -->
-                                        <button type="button" onclick="openEditModal('{{ $ctgry->id }}', '{{ $ctgry->name }}')"
+                                        <button type="button" onclick="openEditModal('{{ $gv->id }}', '{{ $gv->name }}')"
                                             class="inline-flex items-center justify-center rounded-full bg-blue-500 p-3 text-white hover:bg-blue-600 focus:outline-none transition-all"
-                                            title="Edit Category">
+                                            title="Edit gameVersion">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -104,14 +104,14 @@
                                             </svg>
                                         </button>
                                         <!-- Delete -->
-                                        <form action="{{ url('/delete-category') }}" method="POST" class="inline-block">
+                                        <form action="{{ url('/delete-gameVersion') }}" method="POST" class="inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="hidden" name="category_id" value="{{ $ctgry->id }}">
+                                            <input type="hidden" name="gameVersion_id" value="{{ $gv->id }}">
                                             <button type="submit"
                                                 class="inline-flex items-center justify-center rounded-full bg-red-500 p-3 text-white hover:bg-red-600 focus:outline-none transition-all"
-                                                title="Delete Category"
-                                                onclick="return confirm('Are you sure you want to delete this category?');">
+                                                title="Delete gameVersion"
+                                                onclick="return confirm('Are you sure you want to delete this gameVersion?');">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -128,10 +128,10 @@
 
                 <!-- Form Pencarian dan Filter -->
                 <div class="bg-white p-4 border-t border-gray-200">
-                    <form method="GET" action="{{ url('/category') }}" class="flex flex-wrap items-end gap-4">
+                    <form method="GET" action="{{ url('/game-version') }}" class="flex flex-wrap items-end gap-4">
                         <!-- Pencarian -->
                         <div class="flex-grow max-w-sm">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Search Category</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Search game Version</label>
                             <input type="text" name="search" value="{{ $search ?? '' }}"
                                    class="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                                    placeholder="Search ...">
@@ -158,17 +158,17 @@
 
                 <!-- Pagination Links dengan Tailwind Styling -->
                 <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                    {{ $category->links() }}
+                    {{ $gameVersion->links() }}
                 </div>
             </div>
         </div>
 
         <!-- Modal untuk menambah kategori - Style non-blocking -->
-        <div id="addCategoryModal" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 z-50 hidden h-full max-h-full overflow-auto shadow-xl">
+        <div id="addgameVersionModal" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 z-50 hidden h-full max-h-full overflow-auto shadow-xl">
             <div class="relative w-96 h-full bg-white border-l border-gray-200">
                 <div class="p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-medium text-gray-900">Add New Category</h3>
+                        <h3 class="text-xl font-medium text-gray-900">Add New Game Version</h3>
                         <button type="button" onclick="closeAddModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -176,24 +176,24 @@
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    <form class="space-y-6" action="{{ url('/add-category') }}" method="POST">
+                    <form class="space-y-6" action="{{ url('/add-game-version') }}" method="POST">
                         @csrf
                         <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Category Name</label>
-                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Enter category name" required>
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Game Version Name</label>
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Enter Game Version name" required>
                         </div>
-                        <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add Category</button>
+                        <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add Game Version</button>
                     </form>
                 </div>
             </div>
         </div>
 
         <!-- Modal untuk edit kategori - Style non-blocking -->
-        <div id="editCategoryModal" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 z-50 hidden h-full max-h-full overflow-auto shadow-xl">
+        <div id="editgameVersionModal" tabindex="-1" aria-hidden="true" class="fixed top-0 right-0 z-50 hidden h-full max-h-full overflow-auto shadow-xl">
             <div class="relative w-96 h-full bg-white border-l border-gray-200">
                 <div class="p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-medium text-gray-900">Edit Category</h3>
+                        <h3 class="text-xl font-medium text-gray-900">Edit Game Version</h3>
                         <button type="button" onclick="closeEditModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -201,15 +201,15 @@
                             <span class="sr-only">Close modal</span>
                         </button>
                     </div>
-                    <form class="space-y-6" action="{{ url('/update-category') }}" method="POST">
+                    <form class="space-y-6" action="{{ url('/update-game-version') }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="category_id" id="edit_category_id">
+                        <input type="hidden" name="version" id="edit_gameVersion_id">
                         <div>
-                            <label for="edit_name" class="block mb-2 text-sm font-medium text-gray-900">Category Name</label>
-                            <input type="text" name="name" id="edit_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Enter category name" required>
+                            <label for="edit_name" class="block mb-2 text-sm font-medium text-gray-900">Game Version Name</label>
+                            <input type="text" name="name" id="edit_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Enter gameVersion name" required>
                         </div>
-                        <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update Category</button>
+                        <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update Game Version</button>
                     </form>
                 </div>
             </div>
@@ -320,7 +320,7 @@
 
     // Function untuk modal Add dengan animasi slide-in
     function openAddModal() {
-        const modal = document.getElementById('addCategoryModal');
+        const modal = document.getElementById('addgameVersionModal');
         modal.classList.remove('hidden');
         // Animasi slide-in dari kanan
         setTimeout(() => {
@@ -329,7 +329,7 @@
     }
 
     function closeAddModal() {
-        const modal = document.getElementById('addCategoryModal');
+        const modal = document.getElementById('addgameVersionModal');
         const content = modal.querySelector('.relative');
         // Animasi slide-out ke kanan
         content.classList.remove('slide-in-right');
@@ -341,10 +341,10 @@
     }
 
     // Function untuk modal Edit dengan animasi slide-in
-    function openEditModal(id, name) {
-        document.getElementById('edit_category_id').value = id;
-        document.getElementById('edit_name').value = name;
-        const modal = document.getElementById('editCategoryModal');
+    function openEditModal(id, version) {
+        document.getElementById('edit_gameVersion_id').value = id;
+        document.getElementById('edit_name').value = version;
+        const modal = document.getElementById('editgameVersionModal');
         modal.classList.remove('hidden');
         // Animasi slide-in dari kanan
         setTimeout(() => {
@@ -353,7 +353,7 @@
     }
 
     function closeEditModal() {
-        const modal = document.getElementById('editCategoryModal');
+        const modal = document.getElementById('editgameVersionModal');
         const content = modal.querySelector('.relative');
         // Animasi slide-out ke kanan
         content.classList.remove('slide-in-right');
