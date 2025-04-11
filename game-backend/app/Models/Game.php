@@ -14,9 +14,13 @@ class Game extends Model
         'game',
         'name',
         'description',
+        'game_version',
         'played',
     ];
 
+    public function developer(){
+        return $this->belongsTo(User::class);
+    }
 
     public function categories()
     {

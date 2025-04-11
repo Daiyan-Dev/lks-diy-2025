@@ -50,6 +50,9 @@ class User extends Authenticatable
         ];
     }
 
+    public function developerGame(){
+        return $this->hasMany(Game::class);
+    }
 
     public function loglogins(){
         return $this->hasMany(Loglogin::class);
@@ -58,5 +61,4 @@ class User extends Authenticatable
     public function game(){
         return $this->hasMany(Game::class);
     }
-
 }

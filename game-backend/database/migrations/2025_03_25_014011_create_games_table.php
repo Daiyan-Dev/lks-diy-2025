@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('game');
             $table->string('name');
             $table->string('description');
-            $table->string('version');
-            $table->unsignedBigInteger('played');
+            $table->string('game_version');
+            $table->unsignedBigInteger('played')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

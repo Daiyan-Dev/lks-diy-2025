@@ -23,11 +23,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get-game/{id}', [GameController::class, 'getGame']);
         Route::put('/update-game', [GameController::class, 'updateGame']);
         Route::delete('/delete-game', [GameController::class, 'gameDelete']);
-
-        //game version
-        Route::get('/game-version', [ManagementController::class, 'gameVersion']);
-        Route::post('/add-game-version', [ManagementController::class, 'gameVersionPost']);
-        Route::put('/update-game-version/{$id}', [ManagementController::class, 'updateGameVersion']);
     });
     Route::middleware('role:admin')->group(function (){
         //log login
@@ -48,3 +43,43 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::get('/logout', [AuthController::class, 'logout']);
 });
+// Route logout
+
+
+
+
+
+
+
+// // Add a named login route that redirects to React
+// Route::get('/login', function() {
+//     return redirect('http://localhost:5173/#login');
+// })->name('login');
+
+// // Route for unauthorized access
+// Route::get('/unauthorized', function (){
+//     return response()->json([
+//         'status' => 'error',
+//         'message' => 'Unauthorized',
+//         'redirect' => 'http://localhost:5173/#login'
+//     ], 401);
+// });
+
+// // Tambahkan route check-session di sini
+// Route::get('/check-session', function() {
+//     if (Auth::check()) {
+//         return response()->json([
+//             'authenticated' => true,
+//             'user' => Auth::user()
+//         ]);
+//     } else {
+//         return response()->json([
+//             'authenticated' => false
+//         ]);
+//     }
+// });
+
+// // Redirect all unauthorized access to login page
+// Route::fallback(function () {
+//     return redirect('http://localhost:5173/#login');
+// });

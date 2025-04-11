@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('game_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 
+            // Tambahkan unique constraint untuk mencegah duplikasi
             $table->unique(['category_id', 'game_id']);
         });
     }

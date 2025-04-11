@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Category</title>
     @vite('resources/css/app.css')
-    <style> 
+    <style>
         .page-title {
             color: #4f46e5;
             font-size: 2.5rem;
@@ -76,9 +76,9 @@
                 <table class="min-w-full divide-y divide-gray-300 bg-white text-sm">
                     <thead class="bg-indigo-100 text-gray-800">
                         <tr>
-                            <th class="whitespace-nowrap px-6 py-3 font-semibold text-center ">No</th>
-                            <th class="whitespace-nowrap px-6 py-3 font-semibold text-center ">Nama</th>
-                            <th class="whitespace-nowrap px-6 py-3 font-semibold text-center ">Option</th>
+                            <th class="whitespace-nowrap px-6 py-3 font-semibold text-center">No</th>
+                            <th class="whitespace-nowrap px-6 py-3 font-semibold text-center">Nama</th>
+                            <th class="whitespace-nowrap px-6 py-3 font-semibold text-center">Option</th>
                         </tr>
                     </thead>
 

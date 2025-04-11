@@ -52,7 +52,7 @@
                     <span x-show="isExpanded" class="ml-3">Dashboard</span>
                 </a>
 
-                <!-- Game -->
+                <!-- Transaksi -->
                 <a href="{{ url('/game') }}"
                     class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-opacity-80"
                     :class="{
@@ -64,9 +64,8 @@
                     <span x-show="isExpanded" class="ml-3">Game</span>
                 </a>
 
-
                 @if (Auth::user()->role == 'admin')
-                <!-- user -->
+                <!-- Pelanggan -->
                 <a href="{{ url('/users') }}"
                     class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-opacity-80"
                     :class="{
@@ -78,7 +77,7 @@
                     <span x-show="isExpanded" class="ml-3">Users</span>
                 </a>
 
-              <!-- log-login -->
+              <!-- Penjualan -->
                 <a href="{{ url('/log-login') }}"
                     class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-opacity-80"
                     :class="{
@@ -102,8 +101,6 @@
                     <i class="ph-bold ph-puzzle-piece" :class="isExpanded ? '' : 'mx-auto'"></i>
                     <span x-show="isExpanded" class="ml-3">Category</span>
                 </a>
-
-
                 @endif
             </nav>
            <!-- Footer Section -->

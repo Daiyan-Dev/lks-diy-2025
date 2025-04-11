@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Game;
-use App\Models\GameVersion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,7 +116,6 @@ class ManagementController extends Controller
         }
     }
 
-
     //update function
     function updateRole(Request $request)
     {
@@ -146,23 +144,6 @@ class ManagementController extends Controller
         $request->validate([
             'name' => 'required|unique:categories,name,' . $request->category_id,
             'category_id' => 'required|exists:categories,id',
-        ]);
-
-        $category = Category::find($request->category_id);
-        if ($category) {
-            $category->name = $request->name;
-            $category->save();
-            return redirect('/category')->with('success', 'Category updated successfully');
-        } else {
-            return redirect('/category')->with('error', 'Category not found');
-        }
-    }
-
-    //update game version
-    public function updateGameVersion(Request $request){
-        $request->validate([
-            'version' => 'required|unique:version,name,' . $request->game_version_id,
-            'game_version_id' => 'required|exists:categories,id',
         ]);
 
         $category = Category::find($request->category_id);
