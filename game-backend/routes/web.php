@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
         //game version
         Route::get('/game-version', [ManagementController::class, 'gameVersion']);
         Route::post('/add-game-version', [ManagementController::class, 'gameVersionPost']);
+        Route::put('/update-game-version/{$id}', [ManagementController::class, 'updateGameVersion']);
     });
     Route::middleware('role:admin')->group(function (){
         //log login

@@ -64,17 +64,6 @@
                     <span x-show="isExpanded" class="ml-3">Game</span>
                 </a>
 
-                {{-- game version --}}
-                <a href="{{ url('/game-version') }}"
-                    class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-opacity-80"
-                    :class="{
-                        'bg-indigo-600 text-white': currentPath === '/game-version',
-                        'text-gray-700 hover:bg-indigo-50': currentPath !== '/game-version'
-                    }"
-                >
-                    <i class="ph ph-git-merge" :class="isExpanded ? '' : 'mx-auto'"></i>
-                    <span x-show="isExpanded" class="ml-3">Game Version</span>
-                </a>
 
                 @if (Auth::user()->role == 'admin')
                 <!-- user -->
