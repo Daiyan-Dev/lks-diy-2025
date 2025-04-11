@@ -20,18 +20,24 @@ Route::get('/game/{id}/recommendations', [App\Http\Controllers\Api\GameControlle
 
 Route::get('/categories', [App\Http\Controllers\Api\GameController::class, 'categories']);
 
-Route::post('/admin/auth', [App\Http\Controllers\Api\AuthController::class, 'adminAuth']);  // Ubah urutan: api.custom dulu, baru web
+Route::post('/admin/auth', [App\Http\Controllers\Api\AuthController::class, 'adminAuth']);
 
 //post game
 Route::post('/game', [App\Http\Controllers\Api\GameController::class, 'gamePost']);
 
 Route::middleware('auth:sanctum')->group(function(){
     //user management
-    Route::get('/users', [App\Http\Controllers\Api\ManagementController::class, 'users']);
-    Route::get('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'user']);
-    Route::put('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'userUpdate']);
-    Route::delete('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'userDelete']);
+    // Route::get('/users', [App\Http\Controllers\Api\ManagementController::class, 'users']);
+    // Route::get('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'user']);
+    // Route::put('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'userUpdate']);
+    // Route::delete('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'userDelete']);
 
     Route::post('/game/{id}/play', [App\Http\Controllers\Api\GameController::class, 'playGame']);
 
 });
+
+
+//response soal rest api
+// Route::post('signup', [App\Http\Controllers\Api\RestApiController::class, 'signup']);
+
+

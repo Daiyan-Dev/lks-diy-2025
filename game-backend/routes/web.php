@@ -23,6 +23,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get-game/{id}', [GameController::class, 'getGame']);
         Route::put('/update-game', [GameController::class, 'updateGame']);
         Route::delete('/delete-game', [GameController::class, 'gameDelete']);
+
+        //user played management
+        Route::get('/user_played', [ManagementController::class, 'userPlayed']);
     });
     Route::middleware('role:admin')->group(function (){
         //log login
