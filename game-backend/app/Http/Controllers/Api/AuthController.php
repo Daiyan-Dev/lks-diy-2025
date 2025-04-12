@@ -79,6 +79,13 @@ class AuthController extends Controller
                     'message' => 'Password or email is incorrect',
                 ], 401);
             }
+
+            if($user->status != 'free'){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'your account is blocked by admin'
+                ]);
+            }
             $token = $user->createToken('auth_token')->plainTextToken;
             return response()->json([
                 'status' => 'success',

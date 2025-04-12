@@ -124,7 +124,7 @@ class GameController extends Controller
         } else {
             $game->categories()->detach(); // Hapus semua kategori jika tidak ada yang dipilih
         }
-        return redirect()->back()->with('success', 'Game berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Game added succesfully');
 
     }
 
@@ -239,7 +239,7 @@ class GameController extends Controller
             $game->categories()->detach(); // Hapus semua kategori jika tidak ada yang dipilih
         }
 
-        return redirect()->back()->with('success', 'Game successfully updated');
+        return redirect()->back()->with('success', 'Game updated successfully');
     }
 
     // Fungsi helper untuk menghapus direktori dan isinya
@@ -303,7 +303,7 @@ class GameController extends Controller
         //     $this->deleteDirectory($gameDir);
         // }
 
-        return redirect()->back()->with('success', 'Game successfully deleted');
+        return redirect()->back()->with('success', 'Game deleted successfully');
     }
 }
 

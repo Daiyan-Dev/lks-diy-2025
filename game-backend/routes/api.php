@@ -2,42 +2,35 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GameController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 //authentication
-Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
-Route::post('/register', [App\Http\Controllers\Api\AuthController::class, 'register']);
-Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
 
-Route::get('/game', [App\Http\Controllers\Api\GameController::class, 'game']);
-Route::get('/game/search', [App\Http\Controllers\Api\GameController::class, 'searchGames']);
-Route::get('/game/{id}', [App\Http\Controllers\Api\GameController::class, 'gameById']);
-Route::get('/game/{id}/recommendations', [App\Http\Controllers\Api\GameController::class, 'getRecommendations']);
+Route::get('/game', [GameController::class, 'game']);
+Route::get('/game/search', [GameController::class, 'searchGames']);
+Route::get('/game/{id}', [GameController::class, 'gameById']);
+Route::get('/game/{id}/recommendations', [GameController::class, 'getRecommendations']);
 
-Route::get('/categories', [App\Http\Controllers\Api\GameController::class, 'categories']);
+Route::get('/categories', [GameController::class, 'categories']);
 
-Route::post('/admin/auth', [App\Http\Controllers\Api\AuthController::class, 'adminAuth']);
+Route::post('/admin/auth', [AuthController::class, 'adminAuth']);
 
-//post game
-Route::post('/game', [App\Http\Controllers\Api\GameController::class, 'gamePost']);
+Route::post('/game', [GameController::class, 'gamePost']);
 
 Route::middleware('auth:sanctum')->group(function(){
-    //user management
-    // Route::get('/users', [App\Http\Controllers\Api\ManagementController::class, 'users']);
-    // Route::get('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'user']);
-    // Route::put('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'userUpdate']);
-    // Route::delete('/user/{id}', [App\Http\Controllers\Api\ManagementController::class, 'userDelete']);
-
-    Route::post('/game/{id}/play', [App\Http\Controllers\Api\GameController::class, 'playGame']);
-
+    Route::post('/game/{id}/play', [GameController::class, 'playGame']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 
-//response soal rest api
-// Route::post('signup', [App\Http\Controllers\Api\RestApiController::class, 'signup']);
 
 

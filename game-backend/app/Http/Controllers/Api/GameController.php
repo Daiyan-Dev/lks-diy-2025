@@ -128,32 +128,27 @@ class GameController extends Controller
 
     public function playGame(Request $request, $id)
     {
-        // Cari game
         $game = Game::find($id);
 
         if (!$game) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Game tidak ditemukan',
+                'message' => 'Game not found',
             ], 404);
         }
 
-        // Periksa apakah pengguna sudah terautentikasi
         if ($request->user()) {
             $user = $request->user();
 
-            // Periksa apakah pengguna sudah pernah memainkan game ini
-            $alreadyPlayed = DB::table('game_plays') // Hapus backslash
+            $alreadyPlayed = DB::table('game_plays')
                 ->where('user_id', $user->id)
                 ->where('game_id', $id)
                 ->exists();
 
             if (!$alreadyPlayed) {
-                // Tambahkan penghitung played
                 $game->increment('played');
 
-                // Catat bahwa pengguna ini telah memainkan game ini
-                DB::table('game_plays')->insert([ // Hapus backslash
+                DB::table('game_plays')->insert([
                     'user_id' => $user->id,
                     'game_id' => $id,
                     'created_at' => now(),
@@ -172,7 +167,6 @@ class GameController extends Controller
             ], 200);
         }
 
-        // Untuk pengguna tamu, kita akan menambah hitungan sekali per sesi
         return response()->json([
             'status' => 'success',
             'message' => 'Permainan tamu dicatat',

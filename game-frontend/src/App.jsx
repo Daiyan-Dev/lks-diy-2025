@@ -29,7 +29,7 @@ export default function App() {
   }, [])
 
   useEffect(()=>{
-    const sessionTimeout = 360000; // 1 hour in milliseconds
+    const sessionTimeout = 3600000; // 1 hour in milliseconds
     let timeoutId;
     const resetTimer = () => {
       clearTimeout(timeoutId);

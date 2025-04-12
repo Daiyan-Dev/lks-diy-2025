@@ -39,31 +39,6 @@ class ManagementController extends Controller
         return view('users.users', compact('users', 'search', 'sortBy', 'sortDir', 'perPage'));
     }
 
-    public function userPlayed(Request $request){
-        $perPage = $request->get('per_page', 10); // Default 10 item per halaman
-        $search = $request->get('search', ''); // Parameter pencarian
-        $sortBy = $request->get('sort_by', 'name'); // Sortir berdasarkan kolom
-        $sortDir = $request->get('sort_dir', 'asc'); // Arah pengurutan
-
-        $query = User::query();
-
-        // Fitur pencarian
-        if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('role', 'like', "%{$search}%");
-            });
-        }
-
-        // Pengurutan data
-        $query->orderBy($sortBy, $sortDir);
-
-        // Pagination dengan parameter dinamis
-        $users = $query->paginate($perPage)->withQueryString();
-
-        return view('users.user_played');
-    }
 
     public function category(Request $request){
         $perPage = $request->get('per_page', 10); // Default 10 item per halaman

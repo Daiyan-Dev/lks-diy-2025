@@ -64,18 +64,6 @@
                     <span x-show="isExpanded" class="ml-3">Game</span>
                 </a>
 
-                {{-- user was played the game --}}
-               <a href="{{ url('/user_played') }}"
-                    class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-opacity-80"
-                    :class="{
-                        'bg-indigo-600 text-white': currentPath === '/user_played',
-                        'text-gray-700 hover:bg-indigo-50': currentPath !== '/user_played'
-                    }"
-                >
-                    <i class="ph ph-flag-pennant" :class="isExpanded ? '' : 'mx-auto'"></i>
-                    <span x-show="isExpanded" class="ml-3">User Played</span>
-                </a>
-
                 @if (Auth::user()->role == 'admin')
                 <!-- users -->
                 <a href="{{ url('/users') }}"

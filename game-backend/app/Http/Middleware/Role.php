@@ -17,7 +17,7 @@ class Role
     public function handle(Request $request, Closure $next, $role1, $role2 = null): Response
     {
         if(Auth::user()->role != $role1  && Auth::user()->role != $role2){
-            return abort(403);
+            return redirect()->back()->with('error', 'you are not allowed to access this page');
         }
         return $next($request);
     }
