@@ -105,7 +105,7 @@ export default function Games() {
               <input
                 type="text"
                 className="form-control custom-input"
-                placeholder="Cari nama game..."
+                placeholder="Search game name..."
                 name="name"
                 value={searchParams.name}
                 onChange={handleInputChange}
@@ -124,9 +124,9 @@ export default function Games() {
                 value={searchParams.category}
                 onChange={handleInputChange}
               >
-                <option value="">Semua Kategori</option>
+                <option className="bg-black text-white" value="">All Categories</option>
                 {categories.map(category => (
-                  <option key={category.id} value={category.id}>
+                  <option className="bg-black text-white" key={category.id} value={category.id}>
                     {category.name}
                   </option>
                 ))}

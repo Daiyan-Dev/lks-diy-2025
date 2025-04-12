@@ -92,7 +92,7 @@ export default function Game(props) {
       <div className="spinner-border text-primary spinner-lg" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
-      <p className="mt-3">Memuat detail game...</p>
+      <p className="mt-3">Loading detail game...</p>
     </div>
   ) : (
     <div className="game-detail-container">
@@ -107,7 +107,7 @@ export default function Game(props) {
                   className="play-button"
                 >
                   <i className="bi bi-play-fill"></i>
-                  <span>Main Sekarang</span>
+                  <span>Play Now</span>
                 </button>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function Game(props) {
                 
                 <div className="game-meta mb-4">
                   <div className="badge bg-primary me-2 p-2">
-                    <i className="bi bi-people-fill me-1"></i> {game.played || '0'} pemain
+                    <i className="bi bi-people-fill me-1"></i> {game.played || '0'} people played the game
                   </div>
                   {/* <div className="badge bg-success p-2">
                     <i className="bi bi-star-fill me-1"></i> {game.rating || '0'}/5
@@ -133,7 +133,7 @@ export default function Game(props) {
                     <span className="detail-value">{game.developer_name}</span>
                   </div>
                   <div className="detail-item">
-                    <span className="detail-label">Versi:</span>
+                    <span className="detail-label">Game Version:</span>
                     <span className="detail-value">{game.game_version}</span>
                   </div>
                   <div className="detail-item">

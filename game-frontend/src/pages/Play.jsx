@@ -48,7 +48,7 @@ export default function Play(props) {
       <div className="spinner-border text-primary spinner-lg" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
-      <p className="mt-3">Memuat game...</p>
+      <p className="mt-3">Loadin game...</p>
     </div>
   ) : (
     <div className="play-container w-100 h-100 position-fixed top-0 start-0 m-0 p-0 bg-white">
@@ -58,7 +58,7 @@ export default function Play(props) {
       
       <div className="game-controls">
         <button className="back-button" onClick={()=>session.set({page: 'game', data: props.id})}>
-          <i className="bi bi-arrow-left me-2"></i> Kembali
+          <i className="bi bi-arrow-left me-2"></i> Back
         </button>
         <div className="game-info-mini">
           <span className="game-title-mini">{game.name}</span>

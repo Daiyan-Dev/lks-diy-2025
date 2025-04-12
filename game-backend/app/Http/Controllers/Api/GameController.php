@@ -38,10 +38,24 @@ class GameController extends Controller
 
     public function gameById($id)
     {
-        $game = Game::with(['user'])->find($id);
+        $game = Game::with(['user', 'categories'])->find($id);
+
+        if (!$game) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Game tidak ditemukan'
+            ], 404);
+        }
+
         $game->imgUrl = URL::to('storage/images/' . $game->image);
         $game->gameUrl = URL::to('storage/games/' . $game->game);
+
         $game->developer_name = $game->user ? $game->user->name : 'Unknown';
+
+        $categories = $game->categories;
+        $game->categories_list = $categories->pluck('name')->toArray();
+        $game->category_name = $categories->pluck('name')->implode(', ');
+
         return response()->json(
             [
                 'status' => 'success',
@@ -123,7 +137,7 @@ class GameController extends Controller
 
         return response()->json([
             'status' => 'ok',
-            'data' => 'added success',
+            'data' => 'added succesfiully',
         ], 200);
 
     }
@@ -159,19 +173,19 @@ class GameController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Permainan game berhasil dicatat',
+                    'message' => 'Game play has record',
                 ], 200);
             }
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Sudah pernah dimainkan',
+                'message' => 'Already played',
             ], 200);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Permainan tamu dicatat',
+            'message' => 'Guest play has recorded',
         ], 200);
     }
 
@@ -183,7 +197,7 @@ class GameController extends Controller
         if (!$currentGame) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Game tidak ditemukan',
+                'message' => 'Game not found',
             ], 404);
         }
 

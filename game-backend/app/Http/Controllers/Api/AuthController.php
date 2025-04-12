@@ -73,10 +73,16 @@ class AuthController extends Controller
 
             //if user not found
             $user = User::where('email', $request->email)->first();
-            if(!$user || !Hash::check($request->password, $user->password)){
+            if(!$user){
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Password or email is incorrect',
+                    'message' => 'Email dont yet record'
+                ]);
+            }
+            elseif(!Hash::check($request->password, $user->password)){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Password incorrect',
                 ], 401);
             }
 
@@ -99,10 +105,27 @@ class AuthController extends Controller
            try{
             $request->validate([
                 'name' => 'required',
-                'email' => 'required|email|unique:users',
+                'email' => 'required|email|',
                 'password' => 'required|min:8',
                 'confirm_password' => 'required|same:password',
             ]);
+            $password = $request->input('password');
+            $repass = $request->input('confirm_password');
+
+            if($password != $repass){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Password and Confirm Password not same'
+                ]);
+            }
+
+            $unique = User::where('email', $request->email)->first();
+            if($unique){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'email is already registered'
+                ]);
+            }
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
