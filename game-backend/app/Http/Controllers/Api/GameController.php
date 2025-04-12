@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Game;
+use App\Models\Score;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB; // Tambahkan import ini
 
@@ -253,5 +255,28 @@ class GameController extends Controller
             'status' => 'success',
             'categories' => $categories,
         ], 200);
+    }
+
+    public function gameScore(Request $request, $id){
+        $request->validate([
+            'score' => 'string'
+        ]);
+        $score = new Score;
+        $score->game_id = $id;
+        $score->user_id = $request->input('user_id');
+        $score->score = $request->input('score');
+        $score->save();
+        if($score){
+            return response()->json([
+                'status' => 'succes',
+                'message' => 'score added succsesfully'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'failed to add score'
+            ]);
+        }
+
     }
 }
